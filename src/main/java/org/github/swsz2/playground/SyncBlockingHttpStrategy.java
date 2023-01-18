@@ -13,6 +13,7 @@ public class SyncBlockingHttpStrategy extends AbstractHttpStrategy {
   private final RestTemplate restTemplate;
 
   public SyncBlockingHttpStrategy(final RestTemplate restTemplate) {
+    super(Type.SYNC_BLOCKING);
     this.restTemplate = restTemplate;
   }
 
@@ -24,7 +25,15 @@ public class SyncBlockingHttpStrategy extends AbstractHttpStrategy {
 
   @Override
   public <K, V> ResponseEntity<?> fetch(
-      String uri, HttpMethod method, MultiValueMap<K, V> multiValueMap, Class<?> clazz) {
-    return restTemplate.exchange(uri, method, null, clazz, multiValueMap);
+      final String uri,
+      final HttpMethod method,
+      final MultiValueMap<K, V> multiValueMap,
+      final Class<?> clazz) {
+    return restTemplate.exchange(uri, method, HttpEntity.EMPTY, clazz, multiValueMap);
+  }
+
+  @Override
+  public ResponseEntity<?> fetch(final String uri, final HttpMethod method, final Class<?> clazz) {
+    return restTemplate.exchange(uri, method, HttpEntity.EMPTY, clazz, MultiValueMaps.EMPTY);
   }
 }

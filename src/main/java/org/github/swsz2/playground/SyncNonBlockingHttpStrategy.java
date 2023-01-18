@@ -28,6 +28,7 @@ public class SyncNonBlockingHttpStrategy extends AbstractHttpStrategy {
       Set.of(HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH);
 
   public SyncNonBlockingHttpStrategy(final Builder webClientBuilder) {
+    super(Type.SYNC_NONBLOCKING);
     this.webClient = webClientBuilder.build();
     this.responseCount = 1;
     this.timeoutSecond = 1;
@@ -36,13 +37,21 @@ public class SyncNonBlockingHttpStrategy extends AbstractHttpStrategy {
   @Override
   public <T> ResponseEntity<?> fetch(
       final String uri, final HttpMethod method, final T payload, final Class<?> clazz) {
-    return fetch(uri, method, payload, null, clazz);
+    return fetch(uri, method, payload, MultiValueMaps.EMPTY, clazz);
   }
 
   @Override
   public <K, V> ResponseEntity<?> fetch(
-      String uri, HttpMethod method, MultiValueMap<K, V> multiValueMap, Class<?> clazz) {
+      final String uri,
+      final HttpMethod method,
+      final MultiValueMap<K, V> multiValueMap,
+      final Class<?> clazz) {
     return fetch(uri, method, null, multiValueMap, clazz);
+  }
+
+  @Override
+  public ResponseEntity<?> fetch(final String uri, final HttpMethod method, final Class<?> clazz) {
+    return fetch(uri, method, null, MultiValueMaps.EMPTY, clazz);
   }
 
   /**
@@ -62,7 +71,7 @@ public class SyncNonBlockingHttpStrategy extends AbstractHttpStrategy {
       final String uri,
       final HttpMethod method,
       final T payload,
-      MultiValueMap<K, V> multiValueMap,
+      final MultiValueMap<K, V> multiValueMap,
       final Class<?> clazz) {
 
     // 하나의 응답을 받은 것을 확인하기 위한 CountDownLatch 선언

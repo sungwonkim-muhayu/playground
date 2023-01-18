@@ -1,1 +1,12 @@
-
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    hikari:
+      url: jdbc:h2:mem:swsz2
+      driver-class-name: org.h2.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true

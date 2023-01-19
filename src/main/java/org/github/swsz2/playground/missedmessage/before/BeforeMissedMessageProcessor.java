@@ -12,46 +12,32 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Slf4j
 @Service
-public class BeforeMissedMessageProcessor implements MissedMessageProcessor {
-
-  private final BoardRepository boardRepository;
-  private final ContentRepository contentRepository;
-  private final MessagePublisher messagePublisher;
+public class BeforeMissedMessageProcessor extends AbstractMissedMessageProcessor
+    implements MissedMessageProcessor {
 
   public BeforeMissedMessageProcessor(
       final BoardRepository boardRepository,
       final ContentRepository contentRepository,
       final SyncBlockingMessagePublisher messagePublisher) {
-    this.boardRepository = boardRepository;
-    this.contentRepository = contentRepository;
-    this.messagePublisher = messagePublisher;
-  }
-
-  public void prepareEntities() {
-    final Board board = new Board();
-    for (int i = 0; i < 5; i++) {
-      final Content content = new Content();
-      board.addContent(content);
-    }
-    boardRepository.save(board);
+    super(boardRepository, contentRepository, messagePublisher);
   }
 
   @Override
   @Transactional
   public void doProcess() {
-    log.info("enter doProcess");
+    System.out.println("enter doProcess");
     final Board board = boardRepository.findAll().get(0);
     save(board);
     publish();
   }
 
   private void save(final Board board) {
-    log.info("enter save()");
+    System.out.println("enter save()");
     board.addContent(new Content());
   }
 
   private void publish() {
-    log.info("enter publish()");
+    System.out.println("enter publish()");
     messagePublisher.publish();
   }
 }

@@ -11,7 +11,7 @@ public class MissedMessageController {
 
   @GetMapping(value = "/mm/publish")
   public ResponseEntity<Boolean> publish() {
-    log.info("Publish Message!");
+    System.out.println("Publish Message!");
     return ResponseEntity.ok(Boolean.TRUE);
   }
 }

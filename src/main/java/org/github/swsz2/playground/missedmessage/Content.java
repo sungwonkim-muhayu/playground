@@ -2,6 +2,7 @@ package org.github.swsz2.playground.missedmessage;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -16,5 +17,6 @@ public class Content {
   @Setter
   @ManyToOne
   @JoinColumn(name = "board_id")
+  @ToString.Exclude
   private Board board;
 }

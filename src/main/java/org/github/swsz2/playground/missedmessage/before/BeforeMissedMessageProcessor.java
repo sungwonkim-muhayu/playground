@@ -3,6 +3,7 @@ package org.github.swsz2.playground.missedmessage.before;
 import lombok.extern.slf4j.Slf4j;
 import org.github.swsz2.playground.missedmessage.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -25,19 +26,24 @@ public class BeforeMissedMessageProcessor extends AbstractMissedMessageProcessor
   @Override
   @Transactional
   public void doProcess() {
-    System.out.println("enter doProcess");
+    System.out.println("enter doProcess()!");
     final Board board = boardRepository.findAll().get(0);
     save(board);
     publish();
+    System.out.println("finish doProcess()!");
   }
 
-  private void save(final Board board) {
-    System.out.println("enter save()");
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public void save(final Board board) {
+    System.out.println("enter save()!");
     board.addContent(new Content());
+    System.out.println("finish save()!");
   }
 
-  private void publish() {
-    System.out.println("enter publish()");
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public void publish() {
+    System.out.println("enter publish()!");
     messagePublisher.publish();
+    System.out.println("finish publish()!");
   }
 }

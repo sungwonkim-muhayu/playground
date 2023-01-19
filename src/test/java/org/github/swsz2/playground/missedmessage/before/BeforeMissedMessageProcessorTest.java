@@ -28,24 +28,4 @@ class BeforeMissedMessageProcessorTest {
   void doProcess() {
     beforeMissedMessageProcessor.doProcess();
   }
-
-  //  Hibernate: call next value for hibernate_sequence
-  //  Hibernate: call next value for hibernate_sequence
-  //  Hibernate: call next value for hibernate_sequence
-  //  Hibernate: call next value for hibernate_sequence
-  //  Hibernate: call next value for hibernate_sequence
-  //  Hibernate: call next value for hibernate_sequence
-  //  Hibernate: insert into board (id) values (?)
-  //  Hibernate: insert into content (board_id, id) values (?, ?)
-  //  Hibernate: insert into content (board_id, id) values (?, ?)
-  //  Hibernate: insert into content (board_id, id) values (?, ?)
-  //  Hibernate: insert into content (board_id, id) values (?, ?)
-  //  Hibernate: insert into content (board_id, id) values (?, ?)
-  //  enter doProcess
-  //  Hibernate: select board0_.id as id1_0_ from board board0_
-  //  enter save()
-  //  enter publish()
-  //  Publish Message!
-  //  Hibernate: call next value for hibernate_sequence
-  //  Hibernate: insert into content (board_id, id) values (?, ?)
 }

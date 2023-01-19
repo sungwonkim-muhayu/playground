@@ -22,22 +22,25 @@ public class AfterMissedMessageProcessor extends AbstractMissedMessageProcessor
 
   @Override
   public void doProcess() {
-    System.out.println("enter doProcess");
-    transactionHandler.process(
+    System.out.println("enter doProcess()!");
+    transactionHandler.execute(
         () -> {
           final Board board = boardRepository.findAll().get(0);
           save(board);
         });
     publish();
+    System.out.println("finish doProcess()!");
   }
 
   private void save(final Board board) {
-    System.out.println("enter save()");
+    System.out.println("enter save()!");
     board.addContent(new Content());
+    System.out.println("finish save()!");
   }
 
   private void publish() {
-    System.out.println("enter publish()");
+    System.out.println("enter publish()!");
     messagePublisher.publish();
+    System.out.println("finish publish()!");
   }
 }

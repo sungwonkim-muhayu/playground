@@ -15,11 +15,13 @@ public abstract class AbstractMissedMessageProcessor {
   }
 
   public void prepareEntities() {
+    System.out.println("enter prepareEntities()!");
     final Board board = new Board();
     for (int i = 0; i < 5; i++) {
       final Content content = new Content();
       board.addContent(content);
     }
     boardRepository.save(board);
+    System.out.println("finish prepareEntities()!");
   }
 }

@@ -1,8 +1,7 @@
-package org.github.swsz2.playground.missedmessage.after;
+package org.github.swsz2.playground.missedmessage;
 
 import lombok.extern.slf4j.Slf4j;
-import org.github.swsz2.playground.missedmessage.RestTemplateConfiguration;
-import org.github.swsz2.playground.missedmessage.MissedMessageApplication;
+import org.github.swsz2.playground.missedmessage.before.BeforeMissedMessageProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +12,20 @@ import org.springframework.context.annotation.Import;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 
 @Slf4j
-@SpringBootTest(
-    webEnvironment = DEFINED_PORT,
-    classes = {MissedMessageApplication.class}) // 실제 웹 서버 기동 후 진행하기 위함
+@SpringBootTest(webEnvironment = DEFINED_PORT) // 실제 웹 서버 기동 후 진행하기 위함
 @AutoConfigureWebMvc
 @Import(RestTemplateConfiguration.class)
-class AfterMissedMessageProcessorTest {
+class BeforeMissedMessageProcessorTest {
 
-  @Autowired AfterMissedMessageProcessor afterMissedMessageProcessor;
+  @Autowired BeforeMissedMessageProcessor beforeMissedMessageProcessor;
 
   @BeforeEach
   void setUp() {
-    afterMissedMessageProcessor.prepareEntities();
+    beforeMissedMessageProcessor.prepareEntities();
   }
 
   @Test
   void doProcess() {
-    afterMissedMessageProcessor.doProcess();
+    beforeMissedMessageProcessor.doProcess();
   }
 }

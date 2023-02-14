@@ -1,7 +1,5 @@
 package org.github.swsz2.playground.missedmessage;
 
-import org.github.swsz2.playground.HttpStrategy;
-import org.github.swsz2.playground.HttpStrategyFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
